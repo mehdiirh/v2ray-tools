@@ -123,21 +123,22 @@ def yes_no_confirm(question: str) -> bool:
             sys.stdout.write("Wrong answer")
 
 
-path = os.path.exists("/etc/x-ui/x-ui.db")
+db_path = "/etc/x-ui/x-ui.db"
+path_exists = os.path.exists("/etc/x-ui/x-ui.db")
 
 path_confirm = True
-if path:
-    path_confirm = yes_no_confirm("DB found at [/etc/x-ui/x-ui.db]. do you confirm? [y/n] : ")
+if path_exists:
+    path_confirm = yes_no_confirm(f"DB found at [{db_path}]. do you confirm? [y/n] : ")
 
-if not path or not path_confirm:
+if not path_exists or not path_confirm:
     while True:
-        path = input("Enter DB path: ")
-        if os.path.exists(path):
+        db_path = input("Enter DB path: ")
+        if os.path.exists(db_path):
             break
-        print(f"Path [{path}] does not exist.")
+        print(f"Path [{db_path}] does not exist.")
 
 try:
-    connection = sqlite3.connect(path)
+    connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM inbounds;")  # Test connection
 except sqlite3.OperationalError:
