@@ -123,7 +123,7 @@ def yes_no_confirm(question: str) -> bool:
             sys.stdout.write("Wrong answer")
 
 
-path = os.path.exists("/etc/x-ui/db")
+path = os.path.exists("/etc/x-ui/x-ui.db")
 
 path_confirm = True
 if path:
@@ -148,30 +148,30 @@ except sqlite3.OperationalError:
 
 
 cursor.execute(
-    "UPDATE settings SET settings.value = ? WHERE settings.key='xrayTemplateConfig'",
+    "UPDATE settings SET `value` = ? WHERE `key`='xrayTemplateConfig'",
     (XRAY_SETTINGS,)
 )
 
 cursor.execute(
-    "UPDATE settings SET settings.value=? WHERE settings.key='webCertFile'",
+    "UPDATE settings SET `value`=? WHERE `key`='webCertFile'",
     (f"/etc/letsencrypt/live/{server}/fullchain.pem",)
 )
 
 cursor.execute(
-    "UPDATE settings SET settings.value=? WHERE settings.key='webKeyFile'",
+    "UPDATE settings SET `value`=? WHERE `key`='webKeyFile'",
     (f"/etc/letsencrypt/live/{server}/privkey.pem",)
 )
 
 cursor.execute(
-    "UPDATE settings SET settings.value=? WHERE settings.key='webPort'",
+    "UPDATE settings SET `value`=? WHERE `key`='webPort'",
     (2053,)
 )
 
-if yes_no_confirm("Change admin password? [y/n]"):
+if yes_no_confirm("Change admin password? [y/n] : "):
     new_password = input('Enter New Password for user "admin": ')
 
     cursor.execute(
-        "UPDATE users SET users.password=? WHERE users.username='admin'",
+        "UPDATE users SET `password`=? WHERE `username`='admin'",
         (new_password,)
     )
 
