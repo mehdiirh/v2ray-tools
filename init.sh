@@ -30,8 +30,8 @@ sed -i "s/%HOST%/${server}/g" "$server"
 ln -s /etc/nginx/sites-available/"$server" /etc/nginx/sites-enabled/
 
 systemctl edit --full nginx
-sed -i "s/worker_connections 768;/worker_connections 10000;/g"
-sed -i "s/# multi_accept on;/multi_accept on;/g"
+sed -i "s/worker_connections 768;/worker_connections 10000;/g" /etc/nginx/nginx.conf
+sed -i "s/# multi_accept on;/multi_accept on;/g" /etc/nginx/nginx.conf
 
 systemctl stop nginx
 sudo certbot certonly --standalone --preferred-challenges http --agree-tos -d "$server"
