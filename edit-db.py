@@ -107,7 +107,8 @@ XRAY_SETTINGS = json.dumps(
             ]
         },
         "stats": {}
-    }
+    },
+    indent=2
 )
 
 
@@ -121,6 +122,18 @@ def yes_no_confirm(question: str) -> bool:
             return False
         else:
             sys.stdout.write("Wrong answer")
+
+
+def execute(sql: str, params=(), commit=True):
+    _conn = sqlite3.connect(db_path)
+    _cursor = _conn.cursor()
+    result = _cursor.execute(sql, params)
+    if commit:
+        _conn.commit()
+
+    _cursor.close()
+    _conn.close()
+    return result
 
 
 db_path = "/etc/x-ui/x-ui.db"
@@ -141,41 +154,43 @@ try:
     connection = sqlite3.connect(db_path)
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM inbounds;")  # Test connection
+    cursor.close()
+    connection.close()
 except sqlite3.OperationalError:
     print("Couldn't connect to database...")
     print("Exiting...")
     exit(1)
     raise
 
-
-cursor.execute(
-    "UPDATE settings SET `value` = ? WHERE `key`='xrayTemplateConfig'",
-    (XRAY_SETTINGS,)
+execute("DELETE FROM settings WHERE `key`=?", ('xrayTemplateConfig',))
+execute(
+    "INSERT INTO settings (`key`, `value`) VALUES (?, ?)",
+    ("xrayTemplateConfig", XRAY_SETTINGS,)
 )
 
-cursor.execute(
-    "UPDATE settings SET `value`=? WHERE `key`='webCertFile'",
-    (f"/etc/letsencrypt/live/{server}/fullchain.pem",)
+execute("DELETE FROM settings WHERE `key`=?", ('webCertFile',))
+execute(
+    "INSERT INTO settings (`key`, `value`) VALUES (?, ?)",
+    ("webCertFile", f"/etc/letsencrypt/live/{server}/fullchain.pem",)
 )
 
-cursor.execute(
-    "UPDATE settings SET `value`=? WHERE `key`='webKeyFile'",
-    (f"/etc/letsencrypt/live/{server}/privkey.pem",)
+execute("DELETE FROM settings WHERE `key`=?", ('webKeyFile',))
+execute(
+    "INSERT INTO settings (`key`, `value`) VALUES (?, ?)",
+    ("webKeyFile", f"/etc/letsencrypt/live/{server}/privkey.pem",)
 )
 
-cursor.execute(
-    "UPDATE settings SET `value`=? WHERE `key`='webPort'",
-    (2053,)
+
+execute("DELETE FROM settings WHERE `key`=?", ('webPort',))
+execute(
+    "INSERT INTO settings (`key`, `value`) VALUES (?, ?)",
+    ("webPort", 2053,)
 )
 
 if yes_no_confirm("Change admin password? [y/n] : "):
     new_password = input('Enter New Password for user "admin": ')
 
-    cursor.execute(
+    execute(
         "UPDATE users SET `password`=? WHERE `username`='admin'",
         (new_password,)
     )
-
-
-connection.commit()
-connection.close()
