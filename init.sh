@@ -3,6 +3,7 @@
 bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
 
 wget -O bbr.sh https://github.com/teddysun/across/raw/master/bbr.sh && chmod +x bbr.sh && bash bbr.sh
+rm bbr.sh
 
 echo
 echo
@@ -33,8 +34,12 @@ systemctl stop nginx
 sudo certbot certonly --standalone --preferred-challenges http --agree-tos -d "$server"
 systemctl restart nginx
 
+cd ~ || exit 1
+
 wget -O edit-db.py https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/edit-db.py
 python3 edit-db.py "$server"
+
+rm edit-db.py
 
 x-ui restart
 
