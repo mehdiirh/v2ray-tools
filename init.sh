@@ -4,7 +4,7 @@ mkdir /var/log/v2ray
 
 bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
 
-wget -O bbr.sh https://github.com/teddysun/across/raw/master/bbr.sh && chmod +x bbr.sh && bash bbr.sh
+wget -O bbr.sh --no-cache https://github.com/teddysun/across/raw/master/bbr.sh && chmod +x bbr.sh && bash bbr.sh
 rm bbr.sh
 
 echo
@@ -23,7 +23,7 @@ rm -rf /etc/nginx/sites-available/*
 rm -rf /etc/nginx/sites-enabled/*
 
 cd /etc/nginx/sites-available || exit 1
-wget -O nginx-site.conf https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/nginx-site.conf
+wget -O nginx-site.conf --no-cache https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/nginx-site.conf
 
 mv nginx-site.conf "$server"
 sed -i "s/%HOST%/${server}/g" "$server"
