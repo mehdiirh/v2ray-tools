@@ -1,6 +1,7 @@
 import json
 import os
 import sqlite3
+import subprocess
 import sys
 
 try:
@@ -149,6 +150,9 @@ if not path_exists or not path_confirm:
         if os.path.exists(db_path):
             break
         print(f"Path [{db_path}] does not exist.")
+
+# kill any process that is using database, to avoid DB is locked error
+subprocess.run(["fuser", "-k", db_path])
 
 try:
     connection = sqlite3.connect(db_path)
