@@ -23,7 +23,7 @@ rm -rf /etc/nginx/sites-available/*
 rm -rf /etc/nginx/sites-enabled/*
 
 cd /etc/nginx/sites-available || exit 1
-wget -O nginx-site.conf --no-cache https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/nginx-site.conf
+wget -O nginx-site.conf --no-cache https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/fresh_install/nginx-site.conf
 
 mv nginx-site.conf "$server"
 sed -i "s/%HOST%/${server}/g" "$server"
@@ -41,7 +41,7 @@ cd ~ || exit 1
 
 x-ui stop
 
-wget -O edit-db.py https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/edit-db.py
+wget -O edit-db.py https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/fresh_install/edit-db.py
 python3 edit-db.py "$server"
 rm edit-db.py
 
