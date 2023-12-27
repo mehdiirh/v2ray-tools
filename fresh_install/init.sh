@@ -1,8 +1,36 @@
 #!/bin/bash
 
-mkdir /var/log/v2ray
+#mkdir /var/log/v2ray
 
-bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh)
+echo;
+echo "Which panel do you want to install? ";
+echo "1) X-UI";
+echo "2) Sanaei";
+echo "3) Alireza";
+echo -n "Select an option: ";
+read -r panel;
+while true; do
+  case $panel in
+    1)
+      bash <(curl -Ls https://raw.githubusercontent.com/vaxilu/x-ui/master/install.sh);
+      break;
+      ;;
+    2)
+      bash <(curl -Ls https://raw.githubusercontent.com/mhsanaei/3x-ui/master/install.sh)
+      break;
+      ;;
+    3)
+      bash <(curl -Ls https://raw.githubusercontent.com/alireza0/x-ui/master/install.sh)
+      break;
+      ;;
+    *)
+      echo -n "Invalid option. Please select a valid option (1, 2, or 3): ";
+      read -r panel;
+      ;;
+  esac
+
+done
+
 
 wget -O bbr.sh --no-cache https://github.com/teddysun/across/raw/master/bbr.sh && chmod +x bbr.sh && bash bbr.sh
 rm bbr.sh
