@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#mkdir /var/log/v2ray
+mkdir /var/log/v2ray
 
 echo;
 echo "Which panel do you want to install? ";
