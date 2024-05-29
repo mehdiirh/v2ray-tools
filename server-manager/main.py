@@ -33,7 +33,7 @@ async def authenticate(request: Request, call_next):
     if not request_token.startswith("Bearer "):
         return error(AUTH_ERROR)
 
-    request_token = request_token.removeprefix("Bearer ")
+    request_token = request_token.replace("Bearer ", "")
     if request_token != token:
         return error(AUTH_ERROR)
 
