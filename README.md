@@ -5,3 +5,8 @@
 ```bash
 bash <(curl -Ls https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/fresh_install/init.sh)
 ```
+
+- Server Manager Service
+```bash
+bash <(curl -Ls https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/server-manager/init.sh)
+```
