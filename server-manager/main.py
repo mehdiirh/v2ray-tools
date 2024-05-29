@@ -47,7 +47,7 @@ async def download_database():
 
     if not os.path.exists(path):
         return error(DB_INVALID_PATH)
-    return FileResponse(path)
+    return FileResponse(path, filename="x-ui.db")
 
 
 @app.get("/restart-panel/")
