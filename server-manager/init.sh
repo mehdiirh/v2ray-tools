@@ -1,8 +1,10 @@
 #!/usr/bin/bash
 
 git clone https://github.com/mehdiirh/v2ray-tools
-mv v2ray-tools/server-manager/* .
+mv v2ray-tools/server-manager .
 rm -rf v2ray-tools
+
+cd server-manager || exit 1
 
 apt-get install python3-venv -y
 
