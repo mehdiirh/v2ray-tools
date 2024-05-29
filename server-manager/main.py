@@ -1,5 +1,6 @@
 import os
 import subprocess
+from typing import Tuple
 
 from fastapi import FastAPI, Request
 from fastapi.responses import JSONResponse, FileResponse
@@ -15,7 +16,7 @@ with open("token", "r") as token_file:
     token = token_file.read().strip()
 
 
-def error(error_: tuple[str, str]):
+def error(error_: Tuple[str, str]):
     return JSONResponse(
         status_code=200,
         content={"code": error_[0], "message": error_[1]},
