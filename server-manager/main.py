@@ -57,11 +57,11 @@ async def download_database():
 
 @app.get("/restart-panel/")
 async def restart_panel():
-    return_code = subprocess.run(["systemctl", "restart", "x-ui"], shell=True)
+    return_code = subprocess.run(["systemctl", "restart", "x-ui"])
     return {"success": return_code.returncode == 0}
 
 
 @app.get("/restart-nginx/")
 async def restart_nginx():
-    return_code = subprocess.run(["systemctl", "restart", "nginx"], shell=True)
+    return_code = subprocess.run(["systemctl", "restart", "nginx"])
     return {"success": return_code.returncode == 0}
