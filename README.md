@@ -13,5 +13,5 @@
 >```
 > Update:
 >```bash
->bash <(curl -Ls https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/server-manager/init.sh)
+>bash <(curl -Ls https://raw.githubusercontent.com/mehdiirh/v2ray-tools/master/server-manager/update.sh)
 >```
