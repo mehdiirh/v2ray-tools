@@ -41,6 +41,11 @@ async def authenticate(request: Request, call_next):
     return response
 
 
+@app.get("/ping/")
+async def ping():
+    return {"success": True}
+
+
 @app.get("/get-db/")
 async def download_database():
     path = "/etc/x-ui/x-ui.db"
