@@ -52,7 +52,7 @@ async def download_database():
 
 @app.get("/restart-panel/")
 async def restart_panel():
-    return_code = subprocess.run(["x-ui", "restart"], shell=True)
+    return_code = subprocess.run(["systemctl", "restart", "x-ui"], shell=True)
     return {"success": return_code.returncode == 0}
 
 
